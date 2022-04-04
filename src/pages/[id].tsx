@@ -9,7 +9,7 @@ import {
 import { useDisclosure } from "@mantine/hooks";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { ErrorMessage } from "src/components/ErrorMessage";
 import { GoToHomePageButton } from "src/components/GoToHomePageButton";
 import { MyAppShell } from "src/components/MyAppShell";
@@ -19,6 +19,7 @@ import { useBusQuery } from "src/hooks/useBusQuery";
 import { usePreviousRoute } from "src/hooks/usePreviousRoute";
 import { Refresh, SwitchHorizontal } from "tabler-icons-react";
 
+let loaded = false;
 const Bus: NextPage = () => {
   const router = useRouter();
   const routeId = parseInt(router.query.id as string, 10);
@@ -31,6 +32,11 @@ const Bus: NextPage = () => {
     isForward
   );
   const viewport = useRef<HTMLDivElement>({} as HTMLDivElement);
+
+  useEffect(() => {
+    loaded = true;
+  }, []);
+  if (!loaded) return <></>;
 
   const scrollToTop = () =>
     viewport.current.scrollTo({ top: 0, behavior: "smooth" });

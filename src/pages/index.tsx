@@ -7,17 +7,23 @@ import {
   TextInput,
 } from "@mantine/core";
 import type { NextPage } from "next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MyAppShell } from "src/components/MyAppShell";
 import { MyLoader } from "src/components/MyLoader";
 import { RouteButton } from "src/components/RouteButton";
 import { usePreviousRoute } from "src/hooks/usePreviousRoute";
 import { useRoutesQuery } from "src/hooks/useRoutesQuery";
 
+let loaded = false;
 const BusHome: NextPage = () => {
   const [input, setInput] = useState<string>("");
   const { data, fetching, error } = useRoutesQuery();
   const { previousRoute, setPreviousRoute } = usePreviousRoute();
+
+  useEffect(() => {
+    loaded = true;
+  }, []);
+  if (!loaded) return <></>;
 
   if (error) {
     return (
