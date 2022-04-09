@@ -2,19 +2,11 @@ import { Box, Text } from "@mantine/core";
 
 interface Props {
   name: string;
-  arrivesIn: number | undefined;
-  arrivalTime: string;
   busFlag: boolean;
-  isSuspended: boolean;
+  status: string;
 }
 
-export const StationTag: React.FC<Props> = ({
-  name,
-  arrivesIn,
-  arrivalTime,
-  busFlag,
-  isSuspended,
-}) => {
+export const StationTag: React.FC<Props> = ({ name, busFlag, status }) => {
   return (
     <Box
       sx={(theme) => ({
@@ -32,15 +24,7 @@ export const StationTag: React.FC<Props> = ({
       })}
     >
       <Text>{name}</Text>
-      <Text>
-        {isSuspended
-          ? "末班已過"
-          : arrivesIn === undefined
-          ? arrivalTime
-          : arrivesIn === 0
-          ? "即將抵達"
-          : `${arrivesIn} 分鐘後抵達`}
-      </Text>
+      <Text>{status}</Text>
     </Box>
   );
 };

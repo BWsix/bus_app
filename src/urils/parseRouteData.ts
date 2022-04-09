@@ -41,14 +41,25 @@ export const parseRouteData = (
         isSuspended,
         busFlag,
         etas: [bus, ..._],
-      }) => ({
-        id,
-        arrivesIn: bus?.etaTime,
-        arrivalTime: comeTime,
-        isSuspended,
-        busFlag,
-        name: stationName || "",
-      })
+      }) => {
+        const arrivesIn = bus?.etaTime;
+        const arrivalTime = comeTime;
+
+        const status = isSuspended
+          ? "末班已過"
+          : arrivesIn === undefined
+          ? arrivalTime
+          : arrivesIn === 0
+          ? "即將抵達"
+          : `${arrivesIn} 分鐘後抵達`;
+
+        return {
+          id,
+          status,
+          busFlag,
+          name: stationName || "",
+        };
+      }
     );
 
   return data;

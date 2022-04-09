@@ -51,18 +51,9 @@ const Bus: NextPage = () => {
     );
   };
 
-  const rows = data.routes?.map(
-    ({ arrivalTime, arrivesIn, name, isSuspended, busFlag }, idx) => (
-      <StationTag
-        key={idx}
-        arrivesIn={arrivesIn}
-        arrivalTime={arrivalTime}
-        isSuspended={isSuspended}
-        busFlag={busFlag}
-        name={name}
-      />
-    )
-  );
+  const rows = data.routes?.map(({ name, status, busFlag }, idx) => (
+    <StationTag key={idx} status={status} busFlag={busFlag} name={name} />
+  ));
 
   return (
     <MyAppShell>
